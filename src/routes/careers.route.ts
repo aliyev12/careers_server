@@ -1,5 +1,6 @@
 import express from "express";
 import * as careersController from "../controllers/careers.controller";
+import * as careersMiddleware from "../middlewares/careers.middleware";
 
 const careersRouter = express.Router();
 
@@ -10,7 +11,11 @@ careersRouter.get("/", careersController.get);
 careersRouter.get("/:id", careersController.getOne);
 
 /* POST job application */
-careersRouter.post("/", careersController.create);
+careersRouter.post(
+  "/",
+  careersMiddleware.validateNewJobApplication,
+  careersController.create
+);
 
 /* PUT job application */
 careersRouter.put("/:id", careersController.update);

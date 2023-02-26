@@ -9,4 +9,5 @@ export interface IJobApplication {
 export enum EStatus {
   fail = "fail",
   success = "success",
+  validation = "validation",
 }

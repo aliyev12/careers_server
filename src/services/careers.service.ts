@@ -15,14 +15,22 @@ export async function getOne(id: string) {
   return { jobApplication };
 }
 
-export async function create(newJobApplication: IJobApplication) {
+interface ICreateReturn {
+  status: EStatus;
+  data?: any;
+  error?: any;
+}
+
+export async function create(
+  newJobApplication: IJobApplication
+): Promise<ICreateReturn> {
   try {
     const jobApplication = await prisma.jobApplication.create({
       data: newJobApplication,
     });
     return { status: EStatus.success, data: jobApplication };
   } catch (error) {
-    return { status: EStatus.fail, data: error };
+    return { status: EStatus.fail, error };
   }
 }
 

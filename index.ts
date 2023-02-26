@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import bodyParser from "body-parser";
 import cors from "cors";
 import { careersRouter } from "./src/routes/careers.route";
+import { EStatus } from "./src/interfaces";
 
 dotenv.config();
 
@@ -33,7 +34,9 @@ app.use("/careers", careersRouter);
 app.use((err: any, req: Request, res: Response, next: NextFunction) => {
   const statusCode = err.statusCode || 500;
   console.error(err.message, err.stack);
-  res.status(statusCode).json({ message: err.message });
+  res
+    .status(statusCode)
+    .json({ status: EStatus.fail, error: { message: err.message } });
 
   return;
 });
